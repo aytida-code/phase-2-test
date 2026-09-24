@@ -6,6 +6,7 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, status
+from fastapi.responses import HTMLResponse
 
 from app import db, repository, schemas
 
@@ -21,6 +22,57 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
 
 
 app = FastAPI(title="Random Letter Generator", lifespan=lifespan)
+
+
+@app.get("/", response_class=HTMLResponse, include_in_schema=False)
+async def home() -> str:
+    """Render the existing application's browser-facing generator page."""
+    return """<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Random Letter Generator</title>
+</head>
+<body>
+  <main>
+    <h1>Random Letter Generator</h1>
+    <section aria-labelledby="random-number-heading">
+      <h2 id="random-number-heading">Random Number</h2>
+      <p>Generate a random integer in the inclusive range 1 through 100.</p>
+      <button id="generate-number" type="button">Generate</button>
+      <p id="random-number-result" aria-live="polite">No number generated yet.</p>
+    </section>
+  </main>
+  <script>
+    const button = document.getElementById("generate-number");
+    const result = document.getElementById("random-number-result");
+
+    button.addEventListener("click", async () => {
+      try {
+        const response = await fetch("/random-number");
+        if (!response.ok) {
+          throw new Error("Unable to generate a random number.");
+        }
+        const data = await response.json();
+        result.textContent = `Generated number: ${data.value}`;
+      } catch (error) {
+        result.textContent = error.message;
+      }
+    });
+  </script>
+</body>
+</html>"""
+
+
+@app.get(
+    "/random-number",
+    summary="Generate a random number from 1 through 100",
+    description="Returns a newly generated integer in the inclusive range 1 through 100.",
+)
+async def generate_random_number() -> dict[str, int]:
+    """Generate a transient random integer in the inclusive range 1 through 100."""
+    return {"value": random.randint(1, 100)}
 
 
 @app.post(

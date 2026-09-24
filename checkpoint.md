@@ -12,10 +12,16 @@
 | 1 — brownfield understanding, dependency map, safety/design decisions | complete |
 | 2 — secret extraction | inspected; no new hardcoded secrets introduced |
 | 3 — DB URL resolution | inspected; existing database setup preserved and not changed |
-| 4 — feature implementation | pending |
-| 4.5 — test suite | curl-based brownfield verification planned; no test framework configured |
-| 5–7 — compile, boot, and live verification | pending |
-| 8–10 — summary, change log, fix loop | pending |
+| 4 — feature implementation | complete; added transient endpoint and minimal browser page in `app/main.py` |
+| 4.5 — test suite | complete; curl-style live checks run (repository has no configured test suite) |
+| 5–7 — compile, boot, and live verification | complete; compile/import pass, endpoint/UI/existing route verified on port 8010 against temporary PostgreSQL |
+| 8–10 — summary, change log, fix loop | complete; no failures remained after verification |
 | 11 — local commit | pending |
-| 12/12.5 — reports | pending |
-| 13 — deployment script boot test | pending |
+| 12/12.5 — reports | complete; `tests-artifacts/api_test_report.xlsx` and `tests-artifacts/changes_report.docx` contain three observed PASS rows |
+| 13 — deployment script boot test | complete; `start_d250fec4-c010-421c-afee-018c518cb265.sh` booted the app successfully on port 8010 |
+
+## Final Verification Record
+- `python -m compileall app` and `import app.main` passed using the repository dependencies.
+- Live `GET /random-number` returned HTTP 200 and exactly one integer `value` within 1–100.
+- Live `GET /` delivered the Generate control, result area, range text, and client-side fetch behavior; live `GET /letters` remained HTTP 200 with a JSON list.
+- The temporary PostgreSQL instance and application process were stopped after each verification run.
