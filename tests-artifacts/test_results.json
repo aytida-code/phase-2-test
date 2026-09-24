@@ -1,0 +1,26 @@
+[
+  {
+    "Method": "POST",
+    "Endpoint": "/letters/generate",
+    "Description": "Generate and persist one random letter",
+    "Status Code": "N/A",
+    "Pass/Fail": "FAIL",
+    "Reason": "Skipped: 3/3 boot attempts failed; final captured error: ConnectionRefusedError [Errno 111] connecting asyncpg to localhost:5432; report probe observed [Errno 111] Connection refused"
+  },
+  {
+    "Method": "GET",
+    "Endpoint": "/letters",
+    "Description": "List persisted letters, newest first",
+    "Status Code": "N/A",
+    "Pass/Fail": "FAIL",
+    "Reason": "Skipped: 3/3 boot attempts failed; final captured error: ConnectionRefusedError [Errno 111] connecting asyncpg to localhost:5432; report probe observed [Errno 111] Connection refused"
+  },
+  {
+    "Method": "GET",
+    "Endpoint": "/letters/999999",
+    "Description": "Return the specified missing-letter response",
+    "Status Code": "N/A",
+    "Pass/Fail": "FAIL",
+    "Reason": "Skipped: 3/3 boot attempts failed; final captured error: ConnectionRefusedError [Errno 111] connecting asyncpg to localhost:5432; report probe observed [Errno 111] Connection refused"
+  }
+]
