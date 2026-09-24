@@ -11,9 +11,9 @@
 | Step | Status |
 |---|---|
 | 1 — entity/API design | complete |
-| 2–7 — implementation and project configuration | pending |
+| 2–7 — implementation and project configuration | complete |
 | 8 — test generation | skipped (`testing_framework=none`) |
-| 9 — README | pending |
+| 9 — README | complete |
 | 10–14 — checks, live verification, fix loop | pending |
 | 15/15.5 — xlsx/docx reports | pending |
 | 16 — final summary | pending |
