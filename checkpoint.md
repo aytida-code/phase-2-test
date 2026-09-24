@@ -26,4 +26,4 @@
 - A temporary PostgreSQL 17 cluster was started at the configured `postgresql://postgres:postgres@localhost:5432/postgres`, then cleanly stopped after verification.
 - `uvicorn app.main:app --host 127.0.0.1 --port 8000` booted successfully and was stopped by its recorded PID after probes completed.
 - Live report run received `201` from `POST /letters/generate` with a persisted A-Z record, `200` from `GET /letters` with the created record in an ordered array, and expected `404` from `GET /letters/999999`.
-- `tests-artifacts/test_results.json`, `api_test_report.xlsx`, and `project_report.docx` contain the observed PASS results.
+- `tests-artifacts/test_results.json`, `api_test_report.xlsx`, and `project_report.docx` contain the observed PASS results; the one-off report generator was removed after producing them.
