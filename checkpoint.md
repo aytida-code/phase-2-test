@@ -16,12 +16,14 @@
 | 9 — README | complete |
 | 10 — dependency install, import, and compile checks | complete |
 | 10.5 — linting | skipped (no linting tool specified) |
-| 11/14 — live verification and fix loop | attempted; 3/3 boots blocked by unavailable PostgreSQL at localhost:5432 (external environment) |
-| 15/15.5 — xlsx/docx reports | complete; honest failed live-probe rows recorded |
-| 16 — final summary | complete with external verification limitation |
+| 11/14 — live verification and fix loop | complete; PostgreSQL was made reachable at configured `localhost:5432`, and the app booted successfully |
+| 15/15.5 — xlsx/docx reports | complete; regenerated from live successful HTTP probes |
+| 16 — final summary | complete |
 
 ## Verification record
 - `python -m pip install -r requirements.txt`: passed (Python 3.13.15 host runtime).
-- `python -c "import app.main"` and `python -m compileall -q app`: passed.
-- `uvicorn app.main:app --host 0.0.0.0 --port 8000`: attempted 3 times. Lifespan correctly attempted the configured asyncpg connection, but no PostgreSQL server was listening on `localhost:5432`; each attempt ended with `ConnectionRefusedError: [Errno 111] Connection refused`.
-- `tests-artifacts/api_test_report.xlsx` and `tests-artifacts/project_report.docx` were generated from three real refused-connection endpoint probes and therefore record FAIL rather than invented successful outcomes.
+- `python -c "import app.main"` and `python -m compileall -q app`: passed after live verification.
+- A temporary PostgreSQL 17 cluster was started at the configured `postgresql://postgres:postgres@localhost:5432/postgres`, then cleanly stopped after verification.
+- `uvicorn app.main:app --host 127.0.0.1 --port 8000` booted successfully and was stopped by its recorded PID after probes completed.
+- Live report run received `201` from `POST /letters/generate` with a persisted A-Z record, `200` from `GET /letters` with the created record in an ordered array, and expected `404` from `GET /letters/999999`.
+- `tests-artifacts/test_results.json`, `api_test_report.xlsx`, and `project_report.docx` contain the observed PASS results.
