@@ -16,7 +16,7 @@
 | 4.5 — test suite | complete; curl-style live checks run (repository has no configured test suite) |
 | 5–7 — compile, boot, and live verification | complete; compile/import pass, endpoint/UI/existing route verified on port 8010 against temporary PostgreSQL |
 | 8–10 — summary, change log, fix loop | complete; no failures remained after verification |
-| 11 — local commit | pending |
+| 11 — local commit | complete; committed locally with `Add transient random number generator` from `ai_changes.md` |
 | 12/12.5 — reports | complete; `tests-artifacts/api_test_report.xlsx` and `tests-artifacts/changes_report.docx` contain three observed PASS rows |
 | 13 — deployment script boot test | complete; `start_d250fec4-c010-421c-afee-018c518cb265.sh` booted the app successfully on port 8010 |
 
